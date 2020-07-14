@@ -4,8 +4,6 @@ source "${GITHUB_WORKSPACE}/.github/scripts/shutils.sh"
 # Install xform specific dependencies.
 ###############################################################################
 
-installAptPackages r-cran-tidyverse
-
-R -e "remotes::install_github('covid-open-data/geoutils')"
-
+# TODO: Uncomment and ddd additional packages needed for your transformer.
+#installAptPackages pkg1 pkg2 pkg3
 exit 0

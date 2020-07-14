@@ -3,8 +3,6 @@ suppressPackageStartupMessages(library(geoutils))
 
 dir.create("output", showWarning = FALSE)
 dir.create("output/admin0", showWarning = FALSE)
-dir.create("output/admin1", showWarning = FALSE)
-dir.create("output/admin2", showWarning = FALSE)
 
 urls <- list(
   cases = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv",
@@ -36,17 +34,6 @@ process <- function(x, name) {
     # dplyr::mutate(date = parsedate::parse_date(date))
     dplyr::mutate(date = fix_date(date))
 }
-
-
-dsumm <- d %>%
-  group_by(country_region, date) %>%
-  summarise(
-    cases = sum(n_case),
-    deaths = sum(n_death)) %>%
-  ungroup() %>%
-  filter(!(cases == 0 & deaths == 0)) %>%
-  rename(region = "country_region")
-
 
 dc <- process(dc, "n_case")
 dd <- process(dd, "n_death")
@@ -92,12 +79,12 @@ lookup %>%
   group_by(admin0_name) %>%
   slice(1) %>%
   filter(admin0_name %in% repeats)
-# 1 CN          China         
-# 2 DK          Denmark       
-# 3 FR          France        
-# 4 NL          Netherlands   
+# 1 CN          China
+# 2 DK          Denmark
+# 3 FR          France
+# 4 NL          Netherlands
 # 5 GB          United Kingdom
-# 6 US          US   
+# 6 US          US
 
 lookup <- lookup %>%
   group_by(admin0_name) %>%
