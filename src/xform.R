@@ -95,6 +95,8 @@ lookup$admin0_code[is.na(lookup$admin0_code)] <- "ZZ"
 admin0 <- dplyr::left_join(admin0, lookup, by = "admin0_name") %>%
   dplyr::select(admin0_code, date, cases, deaths)
 
+admin0$admin0_code[is.na(admin0$admin0_code)] <- "ZZ"
+
 continents <- admin0 %>%
   dplyr::left_join(geoutils::admin0, by = "admin0_code") %>%
   dplyr::group_by(continent_code, date) %>%
